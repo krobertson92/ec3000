@@ -32,14 +32,28 @@ int translateFib(int fibNum) {
 
 }
 
-int main(void) {
-	  init_timer32(0, TIME_INTERVAL);
-	  enable_timer32(0);
-	  GPIOInit();
-	  GPIOSetDir( LED_PORT, LED_BIT, 1 );
+void morse_pulse(uint8_t long_pulse){
+	if(long_pulse == 1){
+		init_timer32(0, LONG_PULSE_TIME);
+	}else{
+		init_timer32(0, SHORT_PULSE_TIME);
+	}
+	enable_timer32(0);
+	GPIOSetValue( LED_PORT, LED_BIT, LED_ON );
+	__WFI();
+	init_timer32(0, DELAY_TIME);
+	enable_timer32(0);
+	GPIOSetValue( LED_PORT, LED_BIT, LED_OFF );
+	__WFI();
+}
 
-	
+int main(void) {
+	GPIOInit();//setup the gpio
+	GPIOSetDir( LED_PORT, LED_BIT, 1 );//setup the led pin as an output
 	fibonacci(20, 0, 1);
-	while(1){}
+	while(1){
+		morse_pulse(1);
+		morse_pulse(0);
+	}
 	return 0 ;
 }

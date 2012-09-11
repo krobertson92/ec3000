@@ -38,7 +38,12 @@
 #define TIME_INTERVAL	(SystemCoreClock/100 - 1)
 /* depending on the SystemFrequency and SystemAHBFrequency setting, 
 if SystemFrequency = 60Mhz, SystemAHBFrequency = 1/4 SystemAHBFrequency, 
-10mSec = 150.000-1 counts */
+10mSec = 150,000-1 counts*/
+
+#define SHORT_PULSE_TIME 1500000
+#define LONG_PULSE_TIME 22500000
+#define DELAY_TIME 4500000
+/*for morse code, use short pulse of 100ms, long pulse of 1500ms, and delay of 300ms*/
 
 void delay32Ms(uint8_t timer_num, uint32_t delayInMs);
 
